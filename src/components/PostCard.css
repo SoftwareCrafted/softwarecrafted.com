@@ -18,11 +18,11 @@
 .sc-card__image-wrap--hero { height: 100%; min-height: 320px; }
 .sc-card__image-placeholder {
   width: 100%; height: 100%;
-  background: linear-gradient(135deg, #12173a, #0e2a3f);
+  background: linear-gradient(135deg, var(--color-primary), var(--accent-muted));
   display: flex; align-items: center; justify-content: center;
 }
 .sc-card__placeholder-code {
-  font-family: var(--font-mono); font-weight: 700; color: rgba(99,102,241,0.2);
+  font-family: var(--font-mono); font-weight: 700; color: var(--accent-border);
 }
 .sc-card--default .sc-card__placeholder-code { font-size: 2rem; }
 .sc-card--hero-lead .sc-card__placeholder-code { font-size: 4rem; }
@@ -60,7 +60,7 @@
   width: 28px; height: 28px; border-radius: 50%;
   background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem; font-weight: 700; color: #fff;
+  font-size: 0.7rem; font-weight: 700; color: var(--text-inverse);
 }
 .sc-card__author-name { color: var(--text-muted); font-size: var(--text-xs); font-weight: 500; }
 .sc-card__meta-right { display: flex; align-items: center; gap: var(--sp-1); }
