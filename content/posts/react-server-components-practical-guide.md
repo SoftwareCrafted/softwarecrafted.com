@@ -2,7 +2,9 @@
 title: "React Server Components: A Practical Guide for 2026"
 date: "2026-01-30"
 category: "software-development"
-author: "SoftwareCrafted"
+author: "Alex Rivera"
+format: "article"
+lead_answer: "React Server Components execute exclusively on the server, enabling direct database access and reducing client JavaScript by 30-50%. Use them for data fetching and static content; use Client Components ('use client') for interactivity and browser APIs."
 excerpt: "React Server Components have matured significantly. This guide covers what they are, when to use them, and common patterns for building performant applications."
 readTime: "7 min read"
 tags: ["react", "server-components", "nextjs", "performance", "frontend"]

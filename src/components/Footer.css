@@ -1,0 +1,42 @@
+.sc-footer {
+  background: var(--bg-secondary); border-top: 1px solid var(--border-subtle);
+  padding: var(--sp-12) 0 var(--sp-8); margin-top: var(--sp-16);
+}
+.sc-footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--sp-10); }
+.sc-footer__brand { max-width: 340px; }
+.sc-footer__logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: var(--sp-4); }
+.sc-footer__logo-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 7px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+  font-family: var(--font-mono); font-weight: 700; font-size: 0.7rem; color: #fff;
+}
+.sc-footer__logo-text { font-size: 1.05rem; font-weight: 700; }
+.sc-footer__tagline { color: var(--text-muted); font-size: var(--text-sm); line-height: 1.5; margin-bottom: var(--sp-5); }
+.sc-footer__socials { display: flex; gap: var(--sp-2); }
+.sc-footer__social {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: var(--radius-md);
+  background: var(--surface); color: var(--text-muted); text-decoration: none;
+  transition: color var(--duration-fast) ease, background var(--duration-fast) ease;
+}
+.sc-footer__social:hover { color: var(--text-primary); background: var(--surface-hover); }
+.sc-footer__heading {
+  font-size: var(--text-xs); font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: var(--sp-4);
+}
+.sc-footer__list { display: flex; flex-direction: column; gap: var(--sp-2); }
+.sc-footer__link { color: var(--text-secondary); font-size: var(--text-sm); text-decoration: none; }
+.sc-footer__link:hover { color: var(--text-primary); }
+.sc-footer__bottom {
+  margin-top: var(--sp-10); padding-top: var(--sp-5);
+  border-top: 1px solid var(--border-subtle);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.sc-footer__copyright { color: var(--text-muted); font-size: var(--text-xs); }
+.sc-footer__editorial { color: var(--text-muted); font-size: var(--text-xs); font-style: italic; }
+
+@media (max-width: 768px) {
+  .sc-footer__grid { grid-template-columns: 1fr; gap: var(--sp-8); }
+  .sc-footer__bottom { flex-direction: column; gap: var(--sp-2); text-align: center; }
+}

@@ -3,6 +3,8 @@ title: "Why Rust is Reshaping Systems Programming in 2026"
 date: "2026-02-06"
 category: "tech-news"
 author: "SoftwareCrafted"
+format: "news"
+lead_answer: "Rust's adoption in 2026 has reached a tipping point: it's now officially supported in the Linux kernel, used in core AWS and Microsoft infrastructure, and has replaced JavaScript tooling across the web ecosystem with tools like SWC, Turbopack, and Biome."
 excerpt: "Rust's adoption continues to accelerate across the tech industry. From Linux kernel modules to cloud infrastructure, here's why Rust is becoming the default choice for systems programming."
 readTime: "5 min read"
 tags: ["rust", "systems-programming", "programming-languages", "tech-trends"]

@@ -1,150 +1,110 @@
 import { Link } from 'react-router-dom'
-import { HiCode, HiShieldCheck, HiChip, HiBeaker, HiNewspaper, HiMail } from 'react-icons/hi'
-
-const topics = [
-  { icon: HiCode, label: 'Software Development', color: '#818cf8' },
-  { icon: HiBeaker, label: 'Software Testing', color: '#34d399' },
-  { icon: HiShieldCheck, label: 'Cybersecurity', color: '#fb7185' },
-  { icon: HiChip, label: 'Artificial Intelligence', color: '#c084fc' },
-  { icon: HiNewspaper, label: 'Tech News', color: '#fbbf24' },
-]
+import categories from '../data/categories'
+import authors from '../data/authors'
+import AuthorCard from '../components/AuthorCard'
+import BreadcrumbNav from '../components/BreadcrumbNav'
 
 export default function About() {
+  const teamMembers = Object.keys(authors)
+
   return (
-    <div style={styles.page}>
-      <div className="container" style={styles.container}>
-        <h1 style={styles.title}>
+    <div style={s.page}>
+      <div className="container" style={s.container}>
+        <BreadcrumbNav items={[{ name: 'Home', url: '/' }, { name: 'About' }]} />
+
+        <h1 style={s.title}>
           About <span className="gradient-text">SoftwareCrafted</span>
         </h1>
 
-        <div style={styles.content}>
-          <p style={styles.lead}>
-            SoftwareCrafted is a technology blog dedicated to empowering developers,
-            testers, security professionals, and tech enthusiasts with actionable
-            insights and in-depth knowledge.
-          </p>
+        <p style={s.lead}>
+          SoftwareCrafted is a technology publication dedicated to delivering actionable,
+          in-depth coverage of software engineering, quality assurance, cybersecurity,
+          artificial intelligence, and the evolving tech landscape.
+        </p>
 
-          <h2 style={styles.h2}>Our Mission</h2>
-          <p style={styles.text}>
-            We believe that great software is crafted, not just coded. Our mission is
-            to bridge the gap between theory and practice by publishing clear, well-researched
-            articles that help professionals at every level build better software,
-            strengthen security, and stay ahead of technology trends.
+        <section style={s.section}>
+          <h2 style={s.h2}>Our Editorial Mission</h2>
+          <p style={s.text}>
+            We exist to bridge the gap between theory and practice. Every article is
+            technically reviewed, clearly written, and designed to give readers something
+            they can apply immediately — whether that's a new architectural pattern,
+            a testing strategy, or an understanding of the latest security threat.
           </p>
+        </section>
 
-          <h2 style={styles.h2}>What We Cover</h2>
-          <div style={styles.topicGrid}>
-            {topics.map(t => (
-              <div key={t.label} style={styles.topicCard}>
-                <t.icon size={24} style={{ color: t.color }} />
-                <span style={styles.topicLabel}>{t.label}</span>
+        <section style={s.section}>
+          <h2 style={s.h2}>What We Cover</h2>
+          <div style={s.topicGrid}>
+            {categories.map(cat => (
+              <Link key={cat.slug} to={`/category/${cat.slug}`} style={s.topicCard}>
+                <span style={{ ...s.topicDot, background: cat.color }} />
+                <div>
+                  <div style={s.topicName}>{cat.fullLabel}</div>
+                  <div style={s.topicDesc}>{cat.description}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section style={s.section}>
+          <h2 style={s.h2}>Our Standards</h2>
+          <div style={s.standardsGrid}>
+            {[
+              { title: 'Technically Verified', desc: 'Code samples are tested. Claims are sourced. We verify before we publish.' },
+              { title: 'Practically Focused', desc: 'Every article includes actionable takeaways — not just theory.' },
+              { title: 'Editorially Independent', desc: 'Sponsored content is clearly labeled. Editorial decisions are never influenced by advertisers.' },
+              { title: 'Community First', desc: 'We welcome corrections, feedback, and contributions from our readers.' },
+            ].map(item => (
+              <div key={item.title} style={s.standardCard}>
+                <h3 style={s.standardTitle}>{item.title}</h3>
+                <p style={s.standardDesc}>{item.desc}</p>
               </div>
             ))}
           </div>
+        </section>
 
-          <h2 style={styles.h2}>Our Values</h2>
-          <ul style={styles.list}>
-            <li><strong>Accuracy First</strong> — Every article is thoroughly researched and technically verified.</li>
-            <li><strong>Practical Focus</strong> — We prioritize actionable takeaways over abstract theory.</li>
-            <li><strong>Community Driven</strong> — We write for the community and welcome feedback.</li>
-            <li><strong>Continuous Learning</strong> — Technology evolves fast, and so do we.</li>
-          </ul>
-
-          <div style={styles.cta}>
-            <h2 style={styles.h2}>Get in Touch</h2>
-            <p style={styles.text}>
-              Have a suggestion, want to contribute, or just want to say hello? We'd love to hear from you.
-            </p>
-            <a
-              href="https://github.com/SoftwareCrafted"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={styles.ctaBtn}
-            >
-              Visit us on GitHub
-            </a>
+        <section style={s.section}>
+          <h2 style={s.h2}>The Newsroom</h2>
+          <div style={s.teamGrid}>
+            {teamMembers.map(name => (
+              <AuthorCard key={name} authorName={name} />
+            ))}
           </div>
-        </div>
+        </section>
+
+        <section style={s.ctaSection}>
+          <h2 style={s.h2}>Get in Touch</h2>
+          <p style={s.text}>
+            Have a story tip, want to contribute, or need to reach our editorial team?
+          </p>
+          <a href="https://github.com/SoftwareCrafted" target="_blank" rel="noopener noreferrer" style={s.ctaBtn}>
+            Visit us on GitHub
+          </a>
+        </section>
       </div>
     </div>
   )
 }
 
-const styles = {
-  page: { padding: '3rem 0 5rem' },
-  container: { maxWidth: '780px' },
-  title: {
-    fontSize: 'clamp(2rem, 4vw, 2.75rem)',
-    fontWeight: 800,
-    letterSpacing: '-0.03em',
-    marginBottom: '2.5rem',
-  },
-  content: {},
-  lead: {
-    fontSize: '1.2rem',
-    lineHeight: 1.7,
-    color: 'var(--text-secondary)',
-    marginBottom: '2.5rem',
-    paddingBottom: '2rem',
-    borderBottom: '1px solid var(--border-subtle)',
-  },
-  h2: {
-    fontSize: '1.5rem',
-    fontWeight: 700,
-    marginBottom: '1rem',
-    marginTop: '2.5rem',
-  },
-  text: {
-    color: 'var(--text-secondary)',
-    fontSize: '1.05rem',
-    lineHeight: 1.7,
-    marginBottom: '1rem',
-  },
-  topicGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-    gap: '1rem',
-    marginTop: '1rem',
-  },
-  topicCard: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.75rem',
-    padding: '1rem 1.25rem',
-    background: 'var(--bg-card)',
-    borderRadius: '10px',
-    border: '1px solid var(--border-subtle)',
-  },
-  topicLabel: {
-    fontWeight: 600,
-    fontSize: '0.95rem',
-  },
-  list: {
-    paddingLeft: '1.25rem',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.75rem',
-    color: 'var(--text-secondary)',
-    fontSize: '1.05rem',
-    lineHeight: 1.6,
-  },
-  cta: {
-    marginTop: '3rem',
-    padding: '2rem',
-    background: 'var(--bg-card)',
-    borderRadius: '16px',
-    border: '1px solid var(--border-subtle)',
-  },
-  ctaBtn: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    padding: '0.7rem 1.5rem',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
-    color: '#fff',
-    fontWeight: 600,
-    fontSize: '0.95rem',
-    textDecoration: 'none',
-    marginTop: '0.5rem',
-  },
+const s = {
+  page: { padding: 'var(--sp-6) 0 var(--sp-16)' },
+  container: { maxWidth: '800px' },
+  title: { fontSize: 'clamp(2rem, 4vw, var(--text-4xl))', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 'var(--sp-8)' },
+  lead: { fontSize: 'var(--text-xl)', lineHeight: 1.6, color: 'var(--text-secondary)', marginBottom: 'var(--sp-10)', paddingBottom: 'var(--sp-8)', borderBottom: '1px solid var(--border-subtle)' },
+  section: { marginBottom: 'var(--sp-10)' },
+  h2: { fontSize: 'var(--text-2xl)', fontWeight: 700, marginBottom: 'var(--sp-4)' },
+  text: { color: 'var(--text-secondary)', fontSize: 'var(--text-base)', lineHeight: 1.7, marginBottom: 'var(--sp-3)' },
+  topicGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 'var(--sp-3)' },
+  topicCard: { display: 'flex', alignItems: 'flex-start', gap: 'var(--sp-3)', padding: 'var(--sp-4)', background: 'var(--surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', textDecoration: 'none', color: 'inherit', transition: 'border-color var(--duration-fast) ease' },
+  topicDot: { width: 8, height: 8, borderRadius: '50%', marginTop: 6, flexShrink: 0 },
+  topicName: { fontSize: 'var(--text-sm)', fontWeight: 700, marginBottom: 2 },
+  topicDesc: { fontSize: 'var(--text-xs)', color: 'var(--text-muted)', lineHeight: 1.4 },
+  standardsGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 'var(--sp-4)' },
+  standardCard: { padding: 'var(--sp-5)', background: 'var(--surface)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)' },
+  standardTitle: { fontSize: 'var(--text-base)', fontWeight: 700, marginBottom: 'var(--sp-2)' },
+  standardDesc: { fontSize: 'var(--text-sm)', color: 'var(--text-secondary)', lineHeight: 1.5 },
+  teamGrid: { display: 'flex', flexDirection: 'column', gap: 'var(--sp-4)' },
+  ctaSection: { padding: 'var(--sp-6)', background: 'var(--surface)', borderRadius: 'var(--radius-xl)', border: '1px solid var(--border-subtle)' },
+  ctaBtn: { display: 'inline-flex', alignItems: 'center', padding: '10px 20px', borderRadius: 'var(--radius-md)', background: 'var(--accent)', color: '#fff', fontWeight: 600, fontSize: 'var(--text-sm)', textDecoration: 'none', marginTop: 'var(--sp-2)' },
 }

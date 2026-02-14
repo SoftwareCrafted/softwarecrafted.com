@@ -1,26 +1,22 @@
 import { useState, useMemo } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import posts from 'virtual:blog-posts'
 import PostCard from '../components/PostCard'
 import Newsletter from '../components/Newsletter'
+import BreadcrumbNav from '../components/BreadcrumbNav'
+import categories from '../data/categories'
 
-const allCategories = [
-  { slug: 'all', label: 'All Posts' },
-  { slug: 'software-development', label: 'Development' },
-  { slug: 'software-testing', label: 'Testing' },
-  { slug: 'cybersecurity', label: 'Security' },
-  { slug: 'artificial-intelligence', label: 'AI' },
-  { slug: 'tech-news', label: 'News' },
-]
+const allFilters = [{ slug: 'all', label: 'All' }, ...categories]
 
 export default function Blog() {
+  const [searchParams] = useSearchParams()
+  const initialQ = searchParams.get('q') || ''
   const [activeCategory, setActiveCategory] = useState('all')
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState(initialQ)
 
   const filtered = useMemo(() => {
     let result = posts
-    if (activeCategory !== 'all') {
-      result = result.filter(p => p.frontmatter.category === activeCategory)
-    }
+    if (activeCategory !== 'all') result = result.filter(p => p.frontmatter.category === activeCategory)
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase()
       result = result.filter(p =>
@@ -33,125 +29,61 @@ export default function Blog() {
   }, [activeCategory, searchQuery])
 
   return (
-    <div style={styles.page}>
+    <div style={s.page}>
       <div className="container">
-        {/* Page Header */}
-        <div style={styles.header}>
-          <h1 style={styles.title}>Blog</h1>
-          <p style={styles.subtitle}>
-            Explore our latest articles on software development, testing, cybersecurity, AI, and more.
-          </p>
+        <BreadcrumbNav items={[{ name: 'Home', url: '/' }, { name: 'Blog' }]} />
+
+        <div style={s.header}>
+          <h1 style={s.title}>All Articles</h1>
+          <p style={s.subtitle}>{posts.length} articles across {categories.length} topics</p>
         </div>
 
-        {/* Search & Filter */}
-        <div style={styles.controls}>
-          <input
-            type="text"
-            placeholder="Search articles..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={styles.search}
-          />
-          <div style={styles.filters}>
-            {allCategories.map(cat => (
-              <button
-                key={cat.slug}
-                onClick={() => setActiveCategory(cat.slug)}
-                style={{
-                  ...styles.filterBtn,
-                  ...(activeCategory === cat.slug ? styles.filterBtnActive : {}),
-                }}
-              >
+        <div style={s.controls}>
+          <input type="text" placeholder="Search articles..." value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)} style={s.search} />
+          <div style={s.filters}>
+            {allFilters.map(cat => (
+              <button key={cat.slug} onClick={() => setActiveCategory(cat.slug)}
+                style={{ ...s.filterBtn, ...(activeCategory === cat.slug ? s.filterActive : {}) }}>
                 {cat.label}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Posts Grid */}
         {filtered.length > 0 ? (
-          <div style={styles.grid}>
-            {filtered.map(post => (
-              <PostCard key={post.slug} post={post} />
-            ))}
+          <div style={s.grid}>
+            {filtered.map((post, i) => <PostCard key={post.slug} post={post} position={i} />)}
           </div>
         ) : (
-          <div style={styles.empty}>
-            <p style={styles.emptyText}>No articles found matching your criteria.</p>
-          </div>
+          <div style={s.empty}><p>No articles found matching your criteria.</p></div>
         )}
       </div>
-
       <Newsletter />
     </div>
   )
 }
 
-const styles = {
-  page: {
-    padding: '3rem 0',
-  },
-  header: {
-    marginBottom: '2.5rem',
-  },
-  title: {
-    fontSize: '2.5rem',
-    fontWeight: 800,
-    letterSpacing: '-0.03em',
-    marginBottom: '0.5rem',
-  },
-  subtitle: {
-    color: 'var(--text-secondary)',
-    fontSize: '1.1rem',
-  },
-  controls: {
-    marginBottom: '2.5rem',
-  },
+const s = {
+  page: { padding: 'var(--sp-6) 0' },
+  header: { marginBottom: 'var(--sp-6)' },
+  title: { fontSize: 'var(--text-3xl)', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 'var(--sp-1)' },
+  subtitle: { color: 'var(--text-secondary)', fontSize: 'var(--text-base)' },
+  controls: { marginBottom: 'var(--sp-8)' },
   search: {
-    width: '100%',
-    padding: '0.8rem 1.25rem',
-    borderRadius: '10px',
-    border: '1px solid var(--border-light)',
-    background: 'var(--bg-card)',
-    color: 'var(--text-primary)',
-    fontSize: '0.95rem',
-    fontFamily: 'inherit',
-    outline: 'none',
-    marginBottom: '1.25rem',
+    width: '100%', padding: '10px 16px', borderRadius: 'var(--radius-md)',
+    border: '1px solid var(--border-default)', background: 'var(--surface)',
+    color: 'var(--text-primary)', fontSize: 'var(--text-sm)', fontFamily: 'inherit',
+    outline: 'none', marginBottom: 'var(--sp-4)',
   },
-  filters: {
-    display: 'flex',
-    gap: '0.5rem',
-    flexWrap: 'wrap',
-  },
+  filters: { display: 'flex', gap: 'var(--sp-2)', flexWrap: 'wrap' },
   filterBtn: {
-    padding: '0.45rem 1rem',
-    borderRadius: '8px',
-    border: '1px solid var(--border-light)',
-    background: 'transparent',
-    color: 'var(--text-secondary)',
-    fontSize: '0.875rem',
-    fontWeight: 500,
-    cursor: 'pointer',
-    transition: 'all 200ms ease',
-    fontFamily: 'inherit',
+    padding: '6px 14px', borderRadius: 'var(--radius-md)',
+    border: '1px solid var(--border-default)', background: 'transparent',
+    color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', fontWeight: 500,
+    cursor: 'pointer', fontFamily: 'inherit', transition: 'all var(--duration-fast) ease',
   },
-  filterBtnActive: {
-    background: 'rgba(99, 102, 241, 0.15)',
-    borderColor: 'rgba(99, 102, 241, 0.3)',
-    color: '#818cf8',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-    gap: '1.5rem',
-  },
-  empty: {
-    textAlign: 'center',
-    padding: '4rem 0',
-  },
-  emptyText: {
-    color: 'var(--text-muted)',
-    fontSize: '1.1rem',
-  },
+  filterActive: { background: 'var(--accent-subtle)', borderColor: 'var(--accent-border)', color: 'var(--accent-cta)' },
+  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 'var(--sp-5)' },
+  empty: { textAlign: 'center', padding: 'var(--sp-16) 0', color: 'var(--text-muted)' },
 }

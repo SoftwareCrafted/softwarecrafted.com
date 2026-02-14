@@ -1,168 +1,143 @@
-import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { HiMenuAlt3, HiX } from 'react-icons/hi'
-
-const navLinks = [
-  { path: '/', label: 'Home' },
-  { path: '/blog', label: 'Blog' },
-  { path: '/about', label: 'About' },
-]
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { HiMenuAlt3, HiX, HiSearch } from 'react-icons/hi'
+import categories from '../data/categories'
+import posts from 'virtual:blog-posts'
+import { trackEvent } from '../utils/analytics'
+import './Header.css'
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const searchRef = useRef(null)
   const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => { setMobileOpen(false); setSearchOpen(false) }, [location.pathname])
+
+  useEffect(() => {
+    function handleKey(e) {
+      if (e.key === '/' && !searchOpen && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault()
+        setSearchOpen(true)
+      }
+      if (e.key === 'Escape') { setSearchOpen(false); setSearchQuery('') }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [searchOpen])
+
+  useEffect(() => {
+    if (searchOpen && searchRef.current) searchRef.current.focus()
+  }, [searchOpen])
+
+  const suggestions = useMemo(() => {
+    if (!searchQuery.trim()) return []
+    const q = searchQuery.toLowerCase()
+    return posts.filter(p =>
+      p.frontmatter.title.toLowerCase().includes(q) ||
+      p.frontmatter.excerpt?.toLowerCase().includes(q)
+    ).slice(0, 5)
+  }, [searchQuery])
+
+  function handleSuggestionClick(slug) {
+    trackEvent('search_result_click', { slug })
+    setSearchOpen(false)
+    setSearchQuery('')
+    navigate(`/blog/${slug}`)
+  }
 
   return (
-    <header style={styles.header}>
-      <div className="container" style={styles.inner}>
-        <Link to="/" style={styles.logo}>
-          <span style={styles.logoIcon}>SC</span>
-          <span style={styles.logoText}>
-            Software<span style={styles.logoAccent}>Crafted</span>
-          </span>
-        </Link>
+    <>
+      {/* Main Header */}
+      <header className="sc-header">
+        <div className="container sc-header__inner">
+          <Link to="/" className="sc-header__logo">
+            <span className="sc-header__logo-icon">SC</span>
+            <span className="sc-header__logo-text">
+              Software<span className="gradient-text">Crafted</span>
+            </span>
+          </Link>
 
-        <nav style={styles.desktopNav}>
-          {navLinks.map(link => (
+          <div className="sc-header__actions">
+            <button className="sc-header__search-btn" onClick={() => setSearchOpen(true)} aria-label="Search (press /)">
+              <HiSearch size={18} />
+              <span className="sc-header__search-hint">/</span>
+            </button>
+            <Link to="/about" className="sc-header__nav-link">About</Link>
+            <Link to="/#newsletter" className="sc-header__cta">Subscribe</Link>
+            <button className="sc-header__mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menu">
+              {mobileOpen ? <HiX size={22} /> : <HiMenuAlt3 size={22} />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Category Bar */}
+      <nav className="sc-catbar" aria-label="Categories">
+        <div className="container sc-catbar__inner">
+          {categories.map(cat => (
             <Link
-              key={link.path}
-              to={link.path}
-              style={{
-                ...styles.navLink,
-                ...(location.pathname === link.path ? styles.navLinkActive : {}),
-              }}
+              key={cat.slug}
+              to={`/category/${cat.slug}`}
+              className={`sc-catbar__link ${location.pathname === `/category/${cat.slug}` ? 'sc-catbar__link--active' : ''}`}
+              onClick={() => trackEvent('category_click', { category: cat.slug })}
             >
-              {link.label}
+              {cat.label}
             </Link>
           ))}
-        </nav>
+        </div>
+      </nav>
 
-        <button
-          style={styles.mobileToggle}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <HiX size={24} /> : <HiMenuAlt3 size={24} />}
-        </button>
-      </div>
-
+      {/* Mobile Nav */}
       {mobileOpen && (
-        <nav style={styles.mobileNav}>
-          {navLinks.map(link => (
-            <Link
-              key={link.path}
-              to={link.path}
-              style={{
-                ...styles.mobileNavLink,
-                ...(location.pathname === link.path ? styles.navLinkActive : {}),
-              }}
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+        <div className="sc-mobile-nav">
+          <div className="container">
+            {categories.map(cat => (
+              <Link key={cat.slug} to={`/category/${cat.slug}`} className="sc-mobile-nav__link" onClick={() => setMobileOpen(false)}>
+                {cat.fullLabel}
+              </Link>
+            ))}
+            <div className="sc-mobile-nav__divider" />
+            <Link to="/blog" className="sc-mobile-nav__link" onClick={() => setMobileOpen(false)}>All Articles</Link>
+            <Link to="/about" className="sc-mobile-nav__link" onClick={() => setMobileOpen(false)}>About / Newsroom</Link>
+          </div>
+        </div>
       )}
-    </header>
+
+      {/* Search Overlay */}
+      {searchOpen && (
+        <div className="sc-search-overlay" onClick={(e) => { if (e.target === e.currentTarget) { setSearchOpen(false); setSearchQuery('') } }}>
+          <div className="sc-search-modal">
+            <div className="sc-search-input-wrap">
+              <HiSearch size={20} className="sc-search-icon" />
+              <input
+                ref={searchRef}
+                type="text"
+                placeholder="Search articles..."
+                value={searchQuery}
+                onChange={e => { setSearchQuery(e.target.value); trackEvent('search_query', { query: e.target.value }) }}
+                className="sc-search-input"
+              />
+              <kbd className="sc-search-esc">ESC</kbd>
+            </div>
+            {suggestions.length > 0 && (
+              <div className="sc-search-results">
+                {suggestions.map(post => (
+                  <button key={post.slug} className="sc-search-result" onClick={() => handleSuggestionClick(post.slug)}>
+                    <span className="sc-search-result__title">{post.frontmatter.title}</span>
+                    <span className="sc-search-result__excerpt">{post.frontmatter.excerpt?.slice(0, 80)}...</span>
+                  </button>
+                ))}
+              </div>
+            )}
+            {searchQuery && suggestions.length === 0 && (
+              <div className="sc-search-empty">No articles found for "{searchQuery}"</div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   )
 }
-
-const styles = {
-  header: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 100,
-    background: 'rgba(10, 14, 26, 0.85)',
-    backdropFilter: 'blur(16px)',
-    borderBottom: '1px solid var(--border-subtle)',
-    height: 'var(--header-height)',
-  },
-  inner: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: '100%',
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.75rem',
-    textDecoration: 'none',
-    color: 'var(--text-primary)',
-  },
-  logoIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '40px',
-    height: '40px',
-    borderRadius: '10px',
-    background: 'linear-gradient(135deg, #6366f1, #06b6d4)',
-    fontFamily: "'JetBrains Mono', monospace",
-    fontWeight: 700,
-    fontSize: '0.875rem',
-    color: '#fff',
-  },
-  logoText: {
-    fontSize: '1.25rem',
-    fontWeight: 700,
-    letterSpacing: '-0.02em',
-  },
-  logoAccent: {
-    background: 'linear-gradient(135deg, #6366f1, #06b6d4)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  desktopNav: {
-    display: 'flex',
-    gap: '2rem',
-    alignItems: 'center',
-  },
-  navLink: {
-    color: 'var(--text-secondary)',
-    fontWeight: 500,
-    fontSize: '0.95rem',
-    textDecoration: 'none',
-    transition: 'color 150ms ease',
-    position: 'relative',
-  },
-  navLinkActive: {
-    color: 'var(--text-primary)',
-  },
-  mobileToggle: {
-    display: 'none',
-    background: 'none',
-    border: 'none',
-    color: 'var(--text-primary)',
-    cursor: 'pointer',
-    padding: '0.5rem',
-  },
-  mobileNav: {
-    display: 'flex',
-    flexDirection: 'column',
-    background: 'var(--bg-secondary)',
-    borderBottom: '1px solid var(--border-subtle)',
-    padding: '1rem 1.5rem',
-  },
-  mobileNavLink: {
-    color: 'var(--text-secondary)',
-    fontWeight: 500,
-    fontSize: '1rem',
-    textDecoration: 'none',
-    padding: '0.75rem 0',
-    borderBottom: '1px solid var(--border-subtle)',
-  },
-}
-
-// Add responsive styles via CSS
-const mobileStyles = document.createElement('style')
-mobileStyles.textContent = `
-  @media (max-width: 768px) {
-    header nav:first-of-type { display: none !important; }
-    header button[aria-label="Toggle menu"] { display: block !important; }
-  }
-  @media (min-width: 769px) {
-    header nav:last-of-type { display: none !important; }
-  }
-`
-document.head.appendChild(mobileStyles)
