@@ -5,6 +5,7 @@ category: "software-development"
 author: "Kithmi"
 format: "how-to"
 lead_answer: "Set up a CI/CD pipeline by creating a .github/workflows YAML file that defines triggers (push/PR), jobs (test, build, deploy), and steps using GitHub Actions marketplace actions. A basic pipeline runs tests on every push and deploys on merge to main."
+tldr: "Set up a CI/CD pipeline by creating a .github/workflows YAML file that defines triggers (push/PR), jobs (test, build, deploy), and steps using GitHub Actions marketplace actions. A basic pipeline runs tests on every push and deploys on merge to main."
 excerpt: "A step-by-step guide to building a production-ready CI/CD pipeline with GitHub Actions — from your first workflow file to automated deployments."
 readTime: "8 min read"
 estimatedTime: "30 minutes"
@@ -27,6 +28,9 @@ faqs:
     answer: "GitHub Actions is free for public repositories. Private repos get 2,000 minutes/month on the free tier, with additional minutes available on paid plans."
   - question: "Can I run GitHub Actions locally?"
     answer: "Yes, you can use the 'act' tool (https://github.com/nektos/act) to run GitHub Actions workflows locally using Docker containers for testing before pushing."
+source_title: "GitHub Docs: Understanding GitHub Actions"
+source_url: "https://docs.github.com/en/actions/about-github-actions/understanding-github-actions"
+source_license: "CC BY 4.0"
 ---
 
 A well-configured CI/CD pipeline catches bugs early, enforces code quality, and automates deployments. GitHub Actions makes this accessible to every project with a simple YAML configuration.

@@ -5,9 +5,13 @@ category: "tech-news"
 author: "Anjana"
 format: "news"
 lead_answer: "Rust's adoption in 2026 has reached a tipping point: it's now officially supported in the Linux kernel, used in core AWS and Microsoft infrastructure, and has replaced JavaScript tooling across the web ecosystem with tools like SWC, Turbopack, and Biome."
+tldr: "Rust's adoption in 2026 has reached a tipping point: it's now officially supported in the Linux kernel, used in core AWS and Microsoft infrastructure, and has replaced JavaScript tooling across the web ecosystem with tools like SWC, Turbopack, and Biome."
 excerpt: "Rust's adoption continues to accelerate across the tech industry. From Linux kernel modules to cloud infrastructure, here's why Rust is becoming the default choice for systems programming."
 readTime: "5 min read"
 tags: ["rust", "systems-programming", "programming-languages", "tech-trends"]
+source_title: "Rust Programming Language - Wikipedia"
+source_url: "https://en.wikipedia.org/wiki/Rust_(programming_language)"
+source_license: "CC BY-SA 4.0"
 ---
 
 Rust has been voted the "most admired" programming language in developer surveys for years running, but 2026 marks a turning point: Rust is moving from admired to adopted at an unprecedented scale.

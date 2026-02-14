@@ -5,9 +5,13 @@ category: "software-testing"
 author: "Kithmi"
 format: "article"
 lead_answer: "Shift-left testing integrates quality assurance activities — requirements reviews, TDD, static analysis, and CI testing — as early as possible in the SDLC, reducing bug-fix costs by up to 100x compared to finding defects in production."
+tldr: "Shift-left testing integrates quality assurance activities — requirements reviews, TDD, static analysis, and CI testing — as early as possible in the SDLC, reducing bug-fix costs by up to 100x compared to finding defects in production."
 excerpt: "Shift-left testing moves quality assurance earlier in the development lifecycle. Learn how this approach dramatically reduces costs and improves software quality."
 readTime: "6 min read"
 tags: ["testing", "qa", "shift-left", "automation", "devops"]
+source_title: "Shift-left testing - Wikipedia"
+source_url: "https://en.wikipedia.org/wiki/Shift-left_testing"
+source_license: "CC BY-SA 4.0"
 ---
 
 The traditional approach to software testing — waiting until the end of development to verify quality — is expensive and risky. Shift-left testing flips this model by integrating testing activities as early as possible in the software development lifecycle.

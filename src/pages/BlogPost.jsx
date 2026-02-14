@@ -1,18 +1,19 @@
 import { useParams, Link } from 'react-router-dom'
+import posts from 'virtual:blog-posts'
 import { marked } from 'marked'
 import { format } from 'date-fns'
-import posts from 'virtual:blog-posts'
+import BreadcrumbNav from '../components/BreadcrumbNav'
 import CategoryBadge from '../components/CategoryBadge'
-import PostCard from '../components/PostCard'
 import AuthorCard from '../components/AuthorCard'
 import AISnippet from '../components/AISnippet'
 import FAQBlock from '../components/FAQBlock'
-import BreadcrumbNav from '../components/BreadcrumbNav'
 import RelatedTopics from '../components/RelatedTopics'
+import PostCard from '../components/PostCard'
 import SchemaMarkup from '../components/SchemaMarkup'
-import { articleSchema, qaSchema, faqSchema, breadcrumbSchema } from '../utils/schema'
+import Infographic from '../components/Infographic'
+import SourceAttribution from '../components/SourceAttribution'
+import { articleSchema, breadcrumbSchema, qaSchema, faqSchema } from '../utils/schema'
 import { getCategoryMeta } from '../data/categories'
-import { HiArrowLeft, HiClock, HiShare } from 'react-icons/hi'
 import { trackEvent } from '../utils/analytics'
 
 export default function BlogPost() {
@@ -24,7 +25,7 @@ export default function BlogPost() {
       <div className="container" style={{ padding: '80px 0', textAlign: 'center' }}>
         <h1>Article Not Found</h1>
         <p style={{ color: 'var(--text-secondary)', margin: '16px 0' }}>The article you're looking for doesn't exist.</p>
-        <Link to="/blog" style={s.backLink}><HiArrowLeft /> Back to Blog</Link>
+        <Link to="/blog" style={s.backLink}><i className="fa-solid fa-arrow-left fa-icon" /> Back to Blog</Link>
       </div>
     )
   }
@@ -49,8 +50,7 @@ export default function BlogPost() {
 
   function handleShare() {
     const url = window.location.href
-    if (navigator.share) { navigator.share({ title: frontmatter.title, url }) }
-    else { navigator.clipboard.writeText(url) }
+    if (navigator.share) { navigator.share({ title: frontmatter.title, url }) } else { navigator.clipboard.writeText(url) }
     trackEvent('share_click', { slug, method: navigator.share ? 'native' : 'clipboard' })
   }
 
@@ -61,7 +61,6 @@ export default function BlogPost() {
       <div className="container" style={s.container}>
         <BreadcrumbNav items={crumbs} />
 
-        {/* Article Header */}
         <header style={s.header}>
           <div style={s.metaRow}>
             <CategoryBadge category={frontmatter.category} size="lg" />
@@ -72,41 +71,34 @@ export default function BlogPost() {
           </div>
 
           <h1 style={s.title}>{frontmatter.title}</h1>
-
           {frontmatter.excerpt && <p style={s.excerpt}>{frontmatter.excerpt}</p>}
 
           <div style={s.authorBar}>
             <AuthorCard authorName={frontmatter.author} compact />
             <div style={s.authorBarRight}>
               {frontmatter.readTime && (
-                <span style={s.readTime}><HiClock size={14} /> {frontmatter.readTime}</span>
+                <span style={s.readTime}><span className="material-symbols-outlined">schedule</span> {frontmatter.readTime}</span>
               )}
               <button onClick={handleShare} style={s.shareBtn} aria-label="Share article">
-                <HiShare size={16} /> Share
+                <i className="fa-solid fa-share-nodes fa-icon" /> Share
               </button>
             </div>
           </div>
         </header>
 
-        {/* AI-friendly TL;DR */}
-        <AISnippet leadAnswer={frontmatter.lead_answer} tldr={frontmatter.tldr} />
-
-        {/* Article Content */}
+        <AISnippet leadAnswer={frontmatter.lead_answer} tldr={frontmatter.tldr || frontmatter.excerpt} />
+        <Infographic post={post} />
         <div className="post-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />
+        <SourceAttribution sourceTitle={frontmatter.source_title} sourceUrl={frontmatter.source_url} sourceLicense={frontmatter.source_license} />
 
-        {/* FAQ Block (if present) */}
         {frontmatter.faqs && <FAQBlock faqs={frontmatter.faqs} />}
-
-        {/* Related Topics */}
         <RelatedTopics tags={frontmatter.tags} />
 
-        {/* Author Card (full) */}
         <div style={s.authorSection}>
           <h3 style={s.authorSectionTitle}>About the Author</h3>
           <AuthorCard authorName={frontmatter.author} />
         </div>
 
-        {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <section style={s.related}>
             <h2 style={s.relatedTitle}>Related Articles</h2>
@@ -132,7 +124,7 @@ const s = {
     border: '1px solid var(--accent-border)', padding: '1px 6px', borderRadius: 'var(--radius-sm)',
   },
   date: { color: 'var(--text-muted)', fontSize: 'var(--text-sm)' },
-  title: { fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', fontWeight: 800, lineHeight: 1.12, letterSpacing: '-0.03em', marginBottom: 'var(--sp-4)' },
+  title: { fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.75rem, 4vw, 2.75rem)', fontWeight: 900, lineHeight: 1.12, letterSpacing: '-0.02em', marginBottom: 'var(--sp-4)' },
   excerpt: { fontSize: 'var(--text-xl)', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: 'var(--sp-6)' },
   authorBar: {
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -142,7 +134,7 @@ const s = {
   authorBarRight: { display: 'flex', alignItems: 'center', gap: 'var(--sp-4)' },
   readTime: { display: 'flex', alignItems: 'center', gap: 4, color: 'var(--text-muted)', fontSize: 'var(--text-sm)' },
   shareBtn: {
-    display: 'flex', alignItems: 'center', gap: 4,
+    display: 'flex', alignItems: 'center', gap: 8,
     padding: '6px 12px', borderRadius: 'var(--radius-md)',
     background: 'var(--surface)', border: '1px solid var(--border-default)',
     color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', fontWeight: 500,

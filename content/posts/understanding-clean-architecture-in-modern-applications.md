@@ -5,9 +5,13 @@ category: "software-development"
 author: "Anjana"
 format: "longform"
 lead_answer: "Clean Architecture organizes code into concentric layers — entities, use cases, interface adapters, and frameworks — where dependencies always point inward, making the system testable, framework-independent, and maintainable."
+tldr: "Clean Architecture organizes code into concentric layers — entities, use cases, interface adapters, and frameworks — where dependencies always point inward, making the system testable, framework-independent, and maintainable."
 excerpt: "Clean Architecture separates concerns into layers, making your codebase more testable, maintainable, and independent of frameworks. Here's how to implement it effectively."
 readTime: "8 min read"
 tags: ["architecture", "clean-code", "design-patterns", "best-practices"]
+source_title: "Clean architecture (software) - Wikipedia"
+source_url: "https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)"
+source_license: "CC BY-SA 4.0"
 ---
 
 Clean Architecture, popularized by Robert C. Martin (Uncle Bob), is a software design philosophy that emphasizes separation of concerns through concentric layers. Each layer has a specific responsibility, and dependencies always point inward.
