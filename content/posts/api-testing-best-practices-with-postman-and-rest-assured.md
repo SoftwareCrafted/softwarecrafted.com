@@ -5,9 +5,13 @@ category: "software-testing"
 author: "Kithmi"
 format: "article"
 lead_answer: "Effective API testing combines exploratory testing in Postman (organized collections, test scripts) with automated regression testing via REST Assured in CI, covering contracts, error handling, authentication, pagination, and idempotency."
+tldr: "Effective API testing combines exploratory testing in Postman (organized collections, test scripts) with automated regression testing via REST Assured in CI, covering contracts, error handling, authentication, pagination, and idempotency."
 excerpt: "APIs are the backbone of modern applications. Learn proven strategies for testing REST APIs effectively using Postman for exploratory testing and REST Assured for automation."
 readTime: "7 min read"
 tags: ["api-testing", "postman", "rest-assured", "automation", "testing"]
+source_title: "API testing - Wikipedia"
+source_url: "https://en.wikipedia.org/wiki/API_testing"
+source_license: "CC BY-SA 4.0"
 ---
 
 APIs power nearly every modern application, from mobile apps to microservices architectures. Thorough API testing is essential to ensure reliability, security, and performance.

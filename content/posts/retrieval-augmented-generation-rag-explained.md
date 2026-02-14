@@ -5,9 +5,13 @@ category: "artificial-intelligence"
 author: "Kithmi"
 format: "article"
 lead_answer: "RAG (Retrieval-Augmented Generation) works in three stages: indexing documents into a vector store, retrieving semantically similar chunks for a user query, and injecting those chunks into the LLM prompt so it generates grounded, up-to-date answers."
+tldr: "RAG (Retrieval-Augmented Generation) works in three stages: indexing documents into a vector store, retrieving semantically similar chunks for a user query, and injecting those chunks into the LLM prompt so it generates grounded, up-to-date answers."
 excerpt: "Retrieval-Augmented Generation (RAG) combines the power of large language models with external knowledge retrieval. Here's how it works and why it matters."
 readTime: "9 min read"
 tags: ["rag", "llm", "machine-learning", "nlp", "ai"]
+source_title: "Retrieval-augmented generation - Wikipedia"
+source_url: "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+source_license: "CC BY-SA 4.0"
 ---
 
 Large Language Models (LLMs) are incredibly powerful, but they have a fundamental limitation: their knowledge is frozen at the time of training. Retrieval-Augmented Generation (RAG) solves this by giving models access to external, up-to-date knowledge at inference time.

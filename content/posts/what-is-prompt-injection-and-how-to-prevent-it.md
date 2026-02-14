@@ -6,6 +6,7 @@ author: "Kithmi"
 format: "qa"
 question: "What is prompt injection and how do you prevent it in LLM-powered applications?"
 lead_answer: "Prompt injection is an attack where malicious input manipulates an LLM into ignoring its instructions and executing attacker-controlled prompts. Prevention requires input sanitization, output validation, privilege separation, and never trusting user input as system-level instructions."
+tldr: "Prompt injection is an attack where malicious input manipulates an LLM into ignoring its instructions and executing attacker-controlled prompts. Prevention requires input sanitization, output validation, privilege separation, and never trusting user input as system-level instructions."
 excerpt: "Prompt injection attacks manipulate LLMs into executing unintended instructions. Learn what they are, how they work, and proven defense strategies."
 readTime: "6 min read"
 tags: ["prompt-injection", "llm-security", "ai-safety", "application-security"]
@@ -16,6 +17,9 @@ faqs:
     answer: "They are related but distinct. Jailbreaking targets the model's safety guardrails to produce restricted content. Prompt injection targets application logic to make the LLM perform unintended actions like leaking data or bypassing access controls."
   - question: "Does fine-tuning prevent prompt injection?"
     answer: "Fine-tuning can make a model more resistant to certain injection patterns, but it does not eliminate the vulnerability. Attackers can craft novel prompts that bypass fine-tuned defenses."
+source_title: "OWASP Top 10 for LLM Applications"
+source_url: "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+source_license: "CC BY-SA 4.0"
 ---
 
 Prompt injection is one of the most critical security vulnerabilities in applications powered by Large Language Models (LLMs). As organizations rush to integrate AI into their products, understanding and mitigating this attack vector is essential.

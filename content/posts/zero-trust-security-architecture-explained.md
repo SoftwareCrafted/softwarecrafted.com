@@ -5,9 +5,13 @@ category: "cybersecurity"
 author: "Anjana"
 format: "article"
 lead_answer: "Zero Trust Architecture operates on three principles: verify explicitly (authenticate every request using identity, device, and context), use least-privilege access, and assume breach (segment networks and encrypt all traffic). It replaces perimeter-based security."
+tldr: "Zero Trust Architecture operates on three principles: verify explicitly (authenticate every request using identity, device, and context), use least-privilege access, and assume breach (segment networks and encrypt all traffic). It replaces perimeter-based security."
 excerpt: "Zero Trust eliminates implicit trust in any element inside or outside your network. Learn the principles and practical steps to implement a Zero Trust architecture."
 readTime: "7 min read"
 tags: ["zero-trust", "security", "network-security", "authentication"]
+source_title: "NIST SP 800-207 Zero Trust Architecture"
+source_url: "https://www.nist.gov/publications/zero-trust-architecture"
+source_license: "Public Domain (U.S. Gov)"
 ---
 
 The traditional network security model operates on a simple assumption: everything inside the corporate network is trustworthy. Zero Trust Architecture (ZTA) rejects this assumption entirely.

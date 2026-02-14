@@ -5,9 +5,13 @@ category: "software-development"
 author: "Anjana"
 format: "article"
 lead_answer: "React Server Components execute exclusively on the server, enabling direct database access and reducing client JavaScript by 30-50%. Use them for data fetching and static content; use Client Components ('use client') for interactivity and browser APIs."
+tldr: "React Server Components execute exclusively on the server, enabling direct database access and reducing client JavaScript by 30-50%. Use them for data fetching and static content; use Client Components ('use client') for interactivity and browser APIs."
 excerpt: "React Server Components have matured significantly. This guide covers what they are, when to use them, and common patterns for building performant applications."
 readTime: "7 min read"
 tags: ["react", "server-components", "nextjs", "performance", "frontend"]
+source_title: "React Documentation"
+source_url: "https://react.dev/reference/rsc/server-components"
+source_license: "CC BY 4.0"
 ---
 
 React Server Components (RSC) represent a fundamental shift in how React applications are built. After several years of development, they've become a production-ready tool that every React developer should understand.
