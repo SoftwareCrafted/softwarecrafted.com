@@ -2,7 +2,7 @@
 title: "API Testing Best Practices with Postman and REST Assured"
 date: "2026-02-04"
 category: "software-testing"
-author: "Priya Sharma"
+author: "Kithmi"
 format: "article"
 lead_answer: "Effective API testing combines exploratory testing in Postman (organized collections, test scripts) with automated regression testing via REST Assured in CI, covering contracts, error handling, authentication, pagination, and idempotency."
 excerpt: "APIs are the backbone of modern applications. Learn proven strategies for testing REST APIs effectively using Postman for exploratory testing and REST Assured for automation."

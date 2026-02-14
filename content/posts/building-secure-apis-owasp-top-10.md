@@ -2,7 +2,7 @@
 title: "Building Secure APIs: An OWASP Top 10 Primer"
 date: "2026-02-02"
 category: "cybersecurity"
-author: "Marcus Chen"
+author: "Anjana"
 format: "article"
 lead_answer: "The OWASP API Security Top 10 identifies critical risks including Broken Object Level Authorization (BOLA), broken authentication, unrestricted resource consumption, and broken function-level authorization. Defenses require explicit authorization checks, input validation, rate limiting, and continuous monitoring."
 excerpt: "APIs are prime targets for attackers. This guide walks through the OWASP API Security Top 10 risks and practical defenses for each."

@@ -2,7 +2,7 @@
 title: "How to Set Up a CI/CD Pipeline with GitHub Actions"
 date: "2026-02-11"
 category: "software-development"
-author: "Alex Rivera"
+author: "Kithmi"
 format: "how-to"
 lead_answer: "Set up a CI/CD pipeline by creating a .github/workflows YAML file that defines triggers (push/PR), jobs (test, build, deploy), and steps using GitHub Actions marketplace actions. A basic pipeline runs tests on every push and deploys on merge to main."
 excerpt: "A step-by-step guide to building a production-ready CI/CD pipeline with GitHub Actions — from your first workflow file to automated deployments."

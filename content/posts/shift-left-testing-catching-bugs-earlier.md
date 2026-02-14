@@ -2,7 +2,7 @@
 title: "Shift-Left Testing: Why Catching Bugs Earlier Saves Everything"
 date: "2026-02-12"
 category: "software-testing"
-author: "Priya Sharma"
+author: "Kithmi"
 format: "article"
 lead_answer: "Shift-left testing integrates quality assurance activities — requirements reviews, TDD, static analysis, and CI testing — as early as possible in the SDLC, reducing bug-fix costs by up to 100x compared to finding defects in production."
 excerpt: "Shift-left testing moves quality assurance earlier in the development lifecycle. Learn how this approach dramatically reduces costs and improves software quality."

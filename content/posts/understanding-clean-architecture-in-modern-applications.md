@@ -2,7 +2,7 @@
 title: "Understanding Clean Architecture in Modern Applications"
 date: "2026-02-14"
 category: "software-development"
-author: "Alex Rivera"
+author: "Anjana"
 format: "longform"
 lead_answer: "Clean Architecture organizes code into concentric layers — entities, use cases, interface adapters, and frameworks — where dependencies always point inward, making the system testable, framework-independent, and maintainable."
 excerpt: "Clean Architecture separates concerns into layers, making your codebase more testable, maintainable, and independent of frameworks. Here's how to implement it effectively."

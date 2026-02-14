@@ -2,7 +2,7 @@
 title: "What Is Prompt Injection and How Do You Prevent It?"
 date: "2026-02-13"
 category: "cybersecurity"
-author: "Marcus Chen"
+author: "Kithmi"
 format: "qa"
 question: "What is prompt injection and how do you prevent it in LLM-powered applications?"
 lead_answer: "Prompt injection is an attack where malicious input manipulates an LLM into ignoring its instructions and executing attacker-controlled prompts. Prevention requires input sanitization, output validation, privilege separation, and never trusting user input as system-level instructions."
