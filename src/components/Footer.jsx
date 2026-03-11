@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { FaGithub, FaTwitter, FaLinkedin, FaRss } from 'react-icons/fa'
 import categories from '../data/categories'
 import './Footer.css'
 
@@ -15,10 +14,10 @@ export default function Footer() {
             </div>
             <p className="sc-footer__tagline">Expert insights on software development, testing, cybersecurity, AI, and the latest in tech.</p>
             <div className="sc-footer__socials">
-              <a href="https://github.com/SoftwareCrafted" className="sc-footer__social" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub size={18} /></a>
-              <a href="#" className="sc-footer__social" aria-label="Twitter"><FaTwitter size={18} /></a>
-              <a href="#" className="sc-footer__social" aria-label="LinkedIn"><FaLinkedin size={18} /></a>
-              <a href="#" className="sc-footer__social" aria-label="RSS"><FaRss size={16} /></a>
+              <a href="https://github.com/SoftwareCrafted" className="sc-footer__social" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i className="fa-brands fa-github fa-icon" /></a>
+              <a href="#" className="sc-footer__social" aria-label="Twitter"><i className="fa-brands fa-x-twitter fa-icon" /></a>
+              <a href="#" className="sc-footer__social" aria-label="LinkedIn"><i className="fa-brands fa-linkedin-in fa-icon" /></a>
+              <a href="#" className="sc-footer__social" aria-label="RSS"><i className="fa-solid fa-rss fa-icon" /></a>
             </div>
           </div>
           <div>

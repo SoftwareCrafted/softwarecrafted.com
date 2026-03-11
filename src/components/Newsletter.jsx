@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { HiMail } from 'react-icons/hi'
 import { trackEvent } from '../utils/analytics'
 
 export default function Newsletter({ variant = 'block' }) {
@@ -30,7 +29,7 @@ export default function Newsletter({ variant = 'block' }) {
         <div style={s.card}>
           <div style={s.glow} />
           <div style={s.content}>
-            <HiMail size={36} style={{ color: 'var(--accent-cta)' }} />
+            <i className="fa-solid fa-envelope-circle-check fa-icon" style={{ color: 'var(--accent-cta)', fontSize: 36 }} />
             <h2 style={s.title}>Get smarter about software</h2>
             <p style={s.subtitle}>Join developers, testers, and security pros getting weekly insights on software engineering, AI, and cybersecurity.</p>
             {submitted ? (

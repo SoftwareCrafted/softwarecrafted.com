@@ -17,7 +17,7 @@
   display: flex; align-items: center; justify-content: center;
   width: 34px; height: 34px; border-radius: 8px;
   background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
-  font-family: var(--font-mono); font-weight: 700; font-size: 0.75rem; color: #fff;
+  font-family: var(--font-mono); font-weight: 700; font-size: 0.75rem; color: var(--text-inverse);
 }
 .sc-header__logo-text { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
 .sc-header__actions { display: flex; align-items: center; gap: var(--sp-4); }
@@ -40,11 +40,11 @@
 .sc-header__nav-link:hover { color: var(--text-primary); }
 .sc-header__cta {
   padding: 6px 16px; border-radius: var(--radius-md);
-  background: var(--accent); color: #fff;
+  background: var(--accent); color: var(--text-inverse);
   font-weight: 600; font-size: var(--text-sm); text-decoration: none;
   transition: background var(--duration-base) ease;
 }
-.sc-header__cta:hover { background: var(--accent-hover); color: #fff; }
+.sc-header__cta:hover { background: var(--accent-hover); color: var(--text-inverse); }
 .sc-header__mobile-toggle {
   display: none; background: none; border: none; color: var(--text-primary); padding: 4px;
 }
@@ -83,7 +83,7 @@
 /* ── Search Overlay ── */
 .sc-search-overlay {
   position: fixed; inset: 0; z-index: 200;
-  background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+  background: rgba(7,26,58,0.45); backdrop-filter: blur(4px);
   display: flex; align-items: flex-start; justify-content: center;
   padding-top: 120px; animation: fadeIn 0.12s ease;
 }
